@@ -1,4 +1,4 @@
-package Modele;
+/*package Modele;
 
 import java.util.Scanner;
 
@@ -124,4 +124,4 @@ public class Jeu {
         }
     }
 
-}
+}*/
