@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player {
+public class Player implements Damageable{
     private String name;
     private int health;
 
@@ -77,7 +77,13 @@ public class Player {
         else {
             int index = 1;
             for (Card card : this.getCards()) {
-                System.out.print("  " + index + ".[" + card.getName() + " DMG: " + card.getAttack() + " HP: " + card.getDefense() + "]\n");
+                System.out.print("  " + index + ".[" + card.getName() + " DMG: " + card.getAttack());
+                if(card.defense!=0){
+                    System.out.print(" HP: " + card.getDefense() + "]\n");
+                }
+                else{
+                    System.out.print("]\n");
+                }
                 index++;
             }
         }
@@ -116,7 +122,8 @@ public class Player {
         }
     }
 
-    public void takeDamage(int damage){
+    @Override
+    public void takeDamage(int damage) {
         this.health -= damage;
         if (this.health <= 0) {
             this.health = 0;

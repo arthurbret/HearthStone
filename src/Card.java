@@ -1,4 +1,4 @@
-public class Card {
+public class Card implements Damageable{
     protected String name;
     protected int attack;
     protected int defense;
@@ -29,7 +29,8 @@ public class Card {
         return ability;
     }
 
-    public void takeDamage(int damage){
+    @Override
+    public void takeDamage(int damage) {
         this.defense -= damage;
         if (this.defense <= 0) {
             this.defense = 0;
