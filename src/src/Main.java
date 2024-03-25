@@ -1,4 +1,7 @@
+package src;
 
+import src.Card;
+import src.LogWriter;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -99,9 +102,7 @@ public class Main {
                         } else if (player1.getBoard().isEmpty()) {
                             System.out.println("You can't attack with an empty board !");
                             i--;
-                        }
-
-                         else {
+                        } else {
                             System.out.print("Your Board: \n");
                             player1.printBoard();
                             System.out.println("Choose a monster to attack with:");
@@ -125,26 +126,30 @@ public class Main {
                             System.out.print("Enemy's Board: \n");
                             player2.printBoard();
                         }
-                         input = "0";
+                        input = "0";
+                    }
+
+
+                    if (Integer.parseInt(input) == 3) {
+                        if (player1.getBoard().isEmpty()) {
+                            System.out.println("You can't attack with an empty board !");
+                            i--;
+                        } else {
+                            System.out.print("Your Board: \n");
+                            player1.printBoard();
+                            System.out.println("Choose a monster to attack with:");
+                            input = scanner.nextLine();
+                            idAttacker = Integer.parseInt(input) - 1;
+                            Card attacker = player1.getBoard().get(idAttacker);
+                            player2.takeDamage(attacker.getAttack());
+                            System.out.println("Player 2 takes " + attacker.getAttack() + " damage!");
+                            LogWriter logWriter = new LogWriter();
+                            logWriter.writeLog("Player 2 takes " + attacker.getAttack() + " damage!");
+                        }
                     }
                 }
-
-                if (Integer.parseInt(input) == 3) {
-                    if (player1.getBoard().isEmpty()) {
-                        System.out.println("You can't attack with an empty board !");
-                        i--;
-                    } else {
-                        System.out.print("Your Board: \n");
-                        player1.printBoard();
-                        System.out.println("Choose a monster to attack with:");
-                        input = scanner.nextLine();
-                        idAttacker = Integer.parseInt(input) - 1;
-                        Card attacker = player1.getBoard().get(idAttacker);
-                        player2.takeDamage(attacker.getAttack());
-                        System.out.println("Player 2 takes " + attacker.getAttack() + " damage!");
-                        LogWriter logWriter = new LogWriter();
-                        logWriter.writeLog("Player 2 takes " + attacker.getAttack() + " damage!");
-                    }
+                if(player1.getHealth() == 0 || player2.getHealth() == 0){
+                    break;
                 }
             }
 
@@ -254,6 +259,9 @@ public class Main {
                         }
                     }
                 }
+                if(player1.getHealth() == 0 || player2.getHealth() == 0){
+                    break;
+                }
             }
         }
 
@@ -264,8 +272,6 @@ public class Main {
             System.out.println("Player 1 wins!");
         } else if (player2.getHealth() > 0) {
             System.out.println("Player 2 wins!");
-        } else {
-            System.out.println("It's a tie!");
         }
     }
 }

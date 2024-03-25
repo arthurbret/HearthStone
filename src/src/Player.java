@@ -1,7 +1,13 @@
+package src;
+
+import src.Card;
+import src.Damageable;
+import src.LogWriter;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player implements Damageable{
+public class Player implements Damageable {
     private String name;
     private int health;
 

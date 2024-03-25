@@ -1,4 +1,6 @@
-public class Card implements Damageable{
+package src;
+
+public class Card implements Damageable {
     protected String name;
     protected int attack;
     protected int defense;

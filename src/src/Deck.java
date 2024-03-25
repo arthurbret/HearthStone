@@ -1,3 +1,8 @@
+package src;
+
+import src.Card;
+import src.Spell;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -69,13 +74,5 @@ public class Deck {
         this.cards.add(new Card("Chillwind Yeti", 2, 4, "", true));
         this.cards.add(new Card("Ironfur Grizzly", 5, 6, "Taunt", true));
         // Add more cards as needed
-    }
-
-    public void saveToFile(String filename) {
-        // Implement logic to save the deck to a file with the given filename
-    }
-
-    public void loadFromFile(String filename) {
-        // Implement logic to load the deck from a file with the given filename
     }
 }
