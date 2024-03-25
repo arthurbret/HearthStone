@@ -59,7 +59,7 @@ public class Player implements Damageable {
         Card drawnCard = deck.drawCard();
         if (drawnCard != null) {
             cards.add(drawnCard);
-            System.out.println("Drew card: " + drawnCard.getName());
+            System.out.println("Drawn card: " + drawnCard.getName());
         } else {
             System.out.println("Deck is empty!");
         }
