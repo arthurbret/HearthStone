@@ -14,6 +14,10 @@ public class Main {
         Deck deckp2 = new Deck();
         deckp2.createDefaultDeck();
 
+        String input;
+        int idAttacker;
+        int idDefender;
+
         // Shuffle the deck and deal cards to each player
         deckp1.shuffle();
         deckp2.shuffle();
@@ -31,19 +35,94 @@ public class Main {
             System.out.println("Player 1's turn:");
             player1.drawCard(deckp1);
             System.out.println("Health: " + player1.getHealth());
-            System.out.print("Cards: ");//+ player1.getCards());
-            for (Card card : player1.getCards()) {
-                System.out.print(card.getName() + ", ");
-            }
-            System.out.print("\n");
-            System.out.println("Choose a card to play (or type 'done' to end your turn):");
-            String input = scanner.nextLine();
-            if (!input.equalsIgnoreCase("done")) {
-                int cardIndex = Integer.parseInt(input) - 1;
-                Card chosenCard = player1.playCard(cardIndex);
-                if (chosenCard != null) {
-                    player2.takeDamage(chosenCard.getAttack());
-                    System.out.println("Player 2 takes " + chosenCard.getAttack() + " damage!");
+            System.out.print("Your Hand: \n");//+ player1.getCards());
+            player1.printCrads();
+            System.out.print("Your Board: \n");
+            player1.printBoard();
+            System.out.print("Enemy's Board: \n");
+            player2.printBoard();
+            for(int i=0; i<2; i++){
+                System.out.println("Remaining Actions: "+(2-i)+"\nChoose an action (or type 'done' to pass your action):\n 1. Play a card\n 2. Attack a monster\n 3. Attack Enemy player");
+                input = scanner.nextLine();
+                if(!input.equalsIgnoreCase("done")){
+                    if(Integer.parseInt(input) == 1){
+                        System.out.print("Your Hand: \n");//+ player1.getCards());
+                        player1.printCrads();
+                        System.out.println("Choose a card to play (or type 'done' to pass your action):");
+                        input = scanner.nextLine();
+                        if (!input.equalsIgnoreCase("done")) {
+                            int cardIndex = Integer.parseInt(input) - 1;
+                            Card chosenCard = player1.playCard(cardIndex);
+                            if (!chosenCard.isMonster) {
+                                System.out.println("Choose a target:\n 1.Player\n 2.Monster");
+                                input = scanner.nextLine();
+                                if(Integer.parseInt(input) == 1) {
+                                    player2.takeDamage(chosenCard.getAttack());
+                                    System.out.println("Player 2 takes " + chosenCard.getAttack() + " damage!");
+                                }
+                                if(Integer.parseInt(input) == 2){
+                                    System.out.print("Enemy's Board: \n");
+                                    player2.printBoard();
+                                    System.out.println("Choose a monster to target:");
+                                    input = scanner.nextLine();
+                                    idDefender = Integer.parseInt(input) - 1;
+                                    Card defender = player2.getBoard().get(idDefender);
+                                    defender.takeDamage(chosenCard.getAttack());
+                                    player2.destroyIfNoHP(idDefender);
+                                }
+                            }
+                            if(chosenCard.isMonster){
+                                player1.summon(chosenCard);
+                                System.out.print("Your Board: \n");
+                                player1.printBoard();
+                                System.out.print("Enemy's Board: \n");
+                                player2.printBoard();
+                            }
+                        }
+                        input = "0";
+                    }
+                    if(Integer.parseInt(input) == 2) {
+                        if (player2.getBoard().isEmpty()) {
+                            System.out.println("You can't attack an empty board !");
+                            i--;
+                        }
+                        else{
+                            System.out.print("Your Board: \n");
+                            player1.printBoard();
+                            System.out.println("Choose a monster to attack with:");
+                            input = scanner.nextLine();
+                            idAttacker = Integer.parseInt(input) - 1;
+                            Card attacker = player1.getBoard().get(idAttacker);
+                            System.out.print("Enemy's Board: \n");
+                            player2.printBoard();
+                            System.out.println("Choose a monster to attack:");
+                            input = scanner.nextLine();
+                            idDefender = Integer.parseInt(input) - 1;
+                            Card defender = player2.getBoard().get(idDefender);
+
+                            defender.takeDamage(attacker.getAttack());
+                            attacker.takeDamage(defender.getAttack());
+                            player1.destroyIfNoHP(idAttacker);
+                            player2.destroyIfNoHP(idDefender);
+
+                            System.out.print("Your Board: \n");
+                            player1.printBoard();
+                            System.out.print("Enemy's Board: \n");
+                            player2.printBoard();
+                        }
+                        input = "0";
+                    }
+
+                    if(Integer.parseInt(input) == 3){
+                        System.out.print("Your Board: \n");
+                        player1.printBoard();
+                        System.out.println("Choose a monster to attack with:");
+                        input = scanner.nextLine();
+                        idAttacker = Integer.parseInt(input) - 1;
+                        Card attacker = player1.getBoard().get(idAttacker);
+                        player2.takeDamage(attacker.getAttack());
+                        System.out.println("Player 2 takes " + attacker.getAttack() + " damage!");
+                    }
                 }
             }
 
@@ -51,19 +130,93 @@ public class Main {
             System.out.println("Player 2's turn:");
             player2.drawCard(deckp2);
             System.out.println("Health: " + player2.getHealth());
-            System.out.print("Cards: ");//+ player2.getCards());
-            for (Card card : player2.getCards()) {
-                System.out.print(card.getName() + ", ");
-            }
-            System.out.print("\n");
-            System.out.println("Choose a card to play (or type 'done' to end your turn):");
-            input = scanner.nextLine();
-            if (!input.equalsIgnoreCase("done")) {
-                int cardIndex = Integer.parseInt(input) - 1;
-                Card chosenCard = player2.playCard(cardIndex);
-                if (chosenCard != null) {
-                    player1.takeDamage(chosenCard.getAttack());
-                    System.out.println("Player 1 takes " + chosenCard.getAttack() + " damage!");
+            System.out.print("Your Hand: \n");//+ player2.getCards());
+            player2.printCrads();
+            System.out.print("Your Board: \n");
+            player2.printBoard();
+            System.out.print("Enemy's Board: \n");
+            player1.printBoard();
+
+
+            for(int i=0; i<2; i++){
+                System.out.println("Remaining Actions: "+(2-i)+"\nChoose an action (or type 'done' to pass your action):\n 1. Play a card\n 2. Attack a monster\n 3. Attack Enemy player");
+                input = scanner.nextLine();
+                if(!input.equalsIgnoreCase("done")) {
+                    if (Integer.parseInt(input) == 1) {
+                        System.out.print("Your Hand: \n");//+ player1.getCards());
+                        player2.printCrads();
+                        System.out.println("Choose a card to play (or type 'done' to pass your action):");
+                        input = scanner.nextLine();
+                        if (!input.equalsIgnoreCase("done")) {
+                            int cardIndex = Integer.parseInt(input) - 1;
+                            Card chosenCard = player2.playCard(cardIndex);
+                            if (!chosenCard.isMonster) {
+                                System.out.println("Choose a target:\n 1.Player\n 2.Monster");
+                                input = scanner.nextLine();
+                                if(Integer.parseInt(input) == 1) {
+                                    player1.takeDamage(chosenCard.getAttack());
+                                    System.out.println("Player 1 takes " + chosenCard.getAttack() + " damage!");
+                                }
+                                if(Integer.parseInt(input) == 2){
+                                    System.out.print("Enemy's Board: \n");
+                                    player1.printBoard();
+                                    System.out.println("Choose a monster to target:");
+                                    input = scanner.nextLine();
+                                    idDefender = Integer.parseInt(input) - 1;
+                                    Card defender = player1.getBoard().get(idDefender);
+                                    defender.takeDamage(chosenCard.getAttack());
+                                    player1.destroyIfNoHP(idDefender);
+                                }
+                            }
+                            if (chosenCard.isMonster) {
+                                player2.summon(chosenCard);
+                                System.out.print("Your Board: \n");
+                                player2.printBoard();
+                                System.out.print("Enemy's Board: \n");
+                                player1.printBoard();
+                            }
+                        }
+                        input = "0";
+                    }
+                    if (Integer.parseInt(input) == 2) {
+                        if (player1.getBoard().isEmpty()) {
+                            System.out.println("You can't attack an empty board !");
+                        } else {
+                            System.out.print("Your Board: \n");
+                            player2.printBoard();
+                            System.out.println("Choose a monster to attack with:");
+                            input = scanner.nextLine();
+                            idAttacker = Integer.parseInt(input) - 1;
+                            Card attacker = player2.getBoard().get(idAttacker);
+                            System.out.print("Enemy's Board: \n");
+                            player1.printBoard();
+                            System.out.println("Choose a monster to attack:");
+                            input = scanner.nextLine();
+                            idDefender = Integer.parseInt(input) - 1;
+                            Card defender = player1.getBoard().get(idDefender);
+
+                            defender.takeDamage(attacker.getAttack());
+                            attacker.takeDamage(defender.getAttack());
+                            player2.destroyIfNoHP(idAttacker);
+                            player1.destroyIfNoHP(idDefender);
+
+                            System.out.print("Your Board: \n");
+                            player2.printBoard();
+                            System.out.print("Enemy's Board: \n");
+                            player1.printBoard();
+                        }
+                        input = "0";
+                    }
+                    if (Integer.parseInt(input) == 3) {
+                        System.out.print("Your Board: \n");
+                        player2.printBoard();
+                        System.out.println("Choose a monster to attack with:");
+                        input = scanner.nextLine();
+                        idAttacker = Integer.parseInt(input) - 1;
+                        Card attacker = player2.getBoard().get(idAttacker);
+                        player1.takeDamage(attacker.getAttack());
+                        System.out.println("Player 2 takes " + attacker.getAttack() + " damage!");
+                    }
                 }
             }
         }

@@ -41,18 +41,27 @@ public class Deck {
 
     public void createDefaultDeck() {
         // Add predefined set of cards to the deck
-        this.cards.add(new Card("Fireball", 6, 0, "Deal 6 damage to a target"));
-        this.cards.add(new Card("Frostbolt", 3, 0, "Deal 3 damage to a target and freeze it"));
-        this.cards.add(new Card("Arcane Missiles", 3, 0, "Deal 3 damage randomly split between all enemies"));
-        this.cards.add(new Card("Fireball", 6, 0, "Deal 6 damage to a target"));
-        this.cards.add(new Card("Frostbolt", 3, 0, "Deal 3 damage to a target and freeze it"));
-        this.cards.add(new Card("Arcane Missiles", 3, 0, "Deal 3 damage randomly split between all enemies"));
-        this.cards.add(new Card("Fireball", 6, 0, "Deal 6 damage to a target"));
-        this.cards.add(new Card("Frostbolt", 3, 0, "Deal 3 damage to a target and freeze it"));
-        this.cards.add(new Card("Arcane Missiles", 3, 0, "Deal 3 damage randomly split between all enemies"));
-        this.cards.add(new Card("Fireball", 6, 0, "Deal 6 damage to a target"));
-        this.cards.add(new Card("Frostbolt", 3, 0, "Deal 3 damage to a target and freeze it"));
-        this.cards.add(new Card("Arcane Missiles", 3, 0, "Deal 3 damage randomly split between all enemies"));
+        this.cards.add(new Card("Fireball", 6, 0, "Deal 6 damage to a target",false));
+        this.cards.add(new Card("Frostbolt", 3, 0, "Deal 3 damage to a target and freeze it",false));
+        this.cards.add(new Card("Arcane Missiles", 3, 0, "Deal 3 damage randomly split between all enemies",false));
+        this.cards.add(new Card("Fireball", 6, 0, "Deal 6 damage to a target",false));
+        this.cards.add(new Card("Frostbolt", 3, 0, "Deal 3 damage to a target and freeze it",false));
+        this.cards.add(new Card("Arcane Missiles", 3, 0, "Deal 3 damage randomly split between all enemies",false));
+        this.cards.add(new Card("Fireball", 6, 0, "Deal 6 damage to a target",false));
+        this.cards.add(new Card("Frostbolt", 3, 0, "Deal 3 damage to a target and freeze it",false));
+        this.cards.add(new Card("Arcane Missiles", 3, 0, "Deal 3 damage randomly split between all enemies",false));
+        this.cards.add(new Card("Fireball", 6, 0, "Deal 6 damage to a target",false));
+        this.cards.add(new Card("Frostbolt", 3, 0, "Deal 3 damage to a target and freeze it",false));
+        this.cards.add(new Card("Arcane Missiles", 3, 0, "Deal 3 damage randomly split between all enemies",false));
+        this.cards.add(new Card("Wolfrider", 3, 3, "Charge", true));
+        this.cards.add(new Card("Chillwind Yeti", 4, 5, "", true));
+        this.cards.add(new Card("Ironfur Grizzly", 3, 3, "Taunt", true));
+        this.cards.add(new Card("Wolfrider", 3, 3, "Charge", true));
+        this.cards.add(new Card("Chillwind Yeti", 4, 5, "", true));
+        this.cards.add(new Card("Ironfur Grizzly", 3, 3, "Taunt", true));
+        this.cards.add(new Card("Wolfrider", 3, 3, "Charge", true));
+        this.cards.add(new Card("Chillwind Yeti", 4, 5, "", true));
+        this.cards.add(new Card("Ironfur Grizzly", 3, 3, "Taunt", true));
         // Add more cards as needed
     }
 
