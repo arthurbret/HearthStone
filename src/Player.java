@@ -64,6 +64,8 @@ public class Player {
         if (summonedMonster != null && summonedMonster.isMonster) {
             this.board.add(summonedMonster);
             System.out.println("Summoned Monster: " + summonedMonster.getName());
+            LogWriter logWriter = new LogWriter();
+            logWriter.writeLog("Summoned Monster: " + summonedMonster.getName());
         } else {
             System.out.println("You can't summon that !");
         }
