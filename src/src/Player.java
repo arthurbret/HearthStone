@@ -62,6 +62,7 @@ public class Player implements Damageable {
             System.out.println("Drawn card: " + drawnCard.getName());
         } else {
             System.out.println("Deck is empty!");
+            this.takeDamage(30);
         }
     }
 
@@ -69,11 +70,11 @@ public class Player implements Damageable {
 
         if (summonedMonster != null && summonedMonster.isMonster) {
             this.board.add(summonedMonster);
-            System.out.println("Summoned Monster: " + summonedMonster.getName());
+            System.out.println("\nSummoned Monster: " + summonedMonster.getName());
             LogWriter logWriter = new LogWriter();
             logWriter.writeLog("Summoned Monster: " + summonedMonster.getName());
         } else {
-            System.out.println("You can't summon that !");
+            System.out.println("\nYou can't summon that !");
         }
 
     }
@@ -117,6 +118,7 @@ public class Player implements Damageable {
             this.cards.add(drawnCard);
         } else {
             System.out.println("Deck is empty!");
+            this.takeDamage(30);
         }
     }
 
@@ -140,7 +142,7 @@ public class Player implements Damageable {
 
     public void destroyIfNoHP(int index){
         if(this.board.get(index).defense==0){
-            System.out.println(this.board.get(index).getName() + " Died !");
+            System.out.println("\n" + this.board.get(index).getName() + " Died !");
             this.board.remove(index);
         }
     }
